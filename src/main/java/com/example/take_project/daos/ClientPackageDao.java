@@ -9,7 +9,7 @@ import jakarta.persistence.Query;
 import java.util.List;
 
 @Stateless
-public class ClientPackageDao implements BasicCRUDDaoInterface<ClientPackage> {
+public class ClientPackageDao implements ClientPackageDaoInterface {
     @PersistenceContext(name = "default")
     EntityManager entityManager;
 

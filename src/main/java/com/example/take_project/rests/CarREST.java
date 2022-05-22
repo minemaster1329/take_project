@@ -32,6 +32,7 @@ public class CarREST {
     @POST
     @Path("/addnew")
     public void addNewCar(Car car){
+        car.setId(null);
         carService.add(car);
     }
 

@@ -25,7 +25,7 @@ public class DefinedRouteDao implements DefinedRouteDaoInterface{
 
     @Override
     public List<DefinedRoute> getAll() {
-        Query query = entityManager.createQuery("select dr from DefinedRoute");
+        Query query = entityManager.createQuery("select dr from DefinedRoute dr");
         return query.getResultList();
     }
 

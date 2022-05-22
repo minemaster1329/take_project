@@ -25,7 +25,7 @@ public class ClientDao implements ClientDaoInterface{
 
     @Override
     public List<Client> getAll() {
-        Query query = entityManager.createQuery("select c from Client");
+        Query query = entityManager.createQuery("select c from Client c");
         return query.getResultList();
     }
 

@@ -5,7 +5,7 @@ import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 
 @Stateless
-public class ClientPackageInterface implements ClientPackageServiceInterface{
+public class ClientPackageService implements ClientPackageServiceInterface{
     @EJB
     ClientPackageDaoInterface clientPackageDao;
 }

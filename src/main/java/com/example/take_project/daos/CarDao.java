@@ -9,7 +9,7 @@ import jakarta.persistence.Query;
 import java.util.List;
 
 @Stateless
-public class CarDao implements BasicCRUDDaoInterface<Car> {
+public class CarDao implements CarDaoInterface {
     @PersistenceContext(name = "default")
     EntityManager entityManager;
     @Override
@@ -24,7 +24,7 @@ public class CarDao implements BasicCRUDDaoInterface<Car> {
 
     @Override
     public List<Car> getAll() {
-        Query query = entityManager.createQuery("select c from Car");
+        Query query = entityManager.createQuery("select c from Car c");
         return query.getResultList();
     }
 
