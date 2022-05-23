@@ -1,4 +1,6 @@
 package com.example.take_project.services;
 
-public interface ClientPackageServiceInterface {
+import com.example.take_project.models.ClientPackage;
+
+public interface ClientPackageServiceInterface extends BasicCRUDServiceInterface<ClientPackage> {
 }

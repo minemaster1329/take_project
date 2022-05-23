@@ -1,4 +1,6 @@
 package com.example.take_project.services;
 
-public interface DefinedRouteServiceInterface {
+import com.example.take_project.models.DefinedRoute;
+
+public interface DefinedRouteServiceInterface extends BasicCRUDServiceInterface<DefinedRoute> {
 }

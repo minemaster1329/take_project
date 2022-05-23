@@ -13,7 +13,7 @@ public class CarService implements CarServiceInterface{
     CarDaoInterface carDao;
 
     @Override
-    public void add(Car newCar) {
+    public void addNew(Car newCar) {
         carDao.add(newCar);
     }
 
