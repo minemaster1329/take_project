@@ -16,7 +16,7 @@ public class RouteREST {
     RouteServiceInterface routeServiceInterface;
 
     @GET
-    @Path("/getAll")
+    @Path("/getall")
     public List<Route> getAll(){
         return routeServiceInterface.getAll();
     }
@@ -28,7 +28,7 @@ public class RouteREST {
     }
 
     @POST
-    @Path("/addNew")
+    @Path("/addnew")
     public void addNew(Route route){
         route.setId(null);
         routeServiceInterface.addNew(route);

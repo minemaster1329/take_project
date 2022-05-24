@@ -1,9 +1,6 @@
 package com.example.take_project.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class User {
@@ -15,6 +12,9 @@ public class User {
     private byte[] passwordHash;
     @Column(unique = true)
     private byte[] salt;
+
+    @Enumerated(EnumType.ORDINAL)
+    private UserRole userRole;
 
     public Long getId() {
         return id;

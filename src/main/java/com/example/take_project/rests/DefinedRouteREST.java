@@ -16,7 +16,7 @@ public class DefinedRouteREST {
     DefinedRouteServiceInterface definedRouteServiceInterface;
 
     @GET
-    @Path("/getAll")
+    @Path("/getall")
     public List<DefinedRoute> getAll(){
         return definedRouteServiceInterface.getAll();
     }
@@ -28,7 +28,7 @@ public class DefinedRouteREST {
     }
 
     @POST
-    @Path("/addNew")
+    @Path("/addnew")
     public void addNew(DefinedRoute definedRoute){
         definedRouteServiceInterface.addNew(definedRoute);
     }

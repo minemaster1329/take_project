@@ -16,7 +16,7 @@ public class ClientPackageREST {
     ClientPackageServiceInterface clientPackageService;
 
     @GET
-    @Path("/getAll")
+    @Path("/getall")
     public List<ClientPackage> getAll(){
         return clientPackageService.getAll();
     }
@@ -28,7 +28,7 @@ public class ClientPackageREST {
     }
 
     @POST
-    @Path("/addNew")
+    @Path("/addnew")
     public void addNew(ClientPackage clientPackage){
         clientPackage.setId(null);
         clientPackageService.addNew(clientPackage);

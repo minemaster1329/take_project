@@ -1,11 +1,15 @@
 package com.example.take_project.rests;
 
 import com.example.take_project.models.Car;
+import com.example.take_project.otherstuff.annotations.Secured;
 import com.example.take_project.services.CarServiceInterface;
 import jakarta.ejb.EJB;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.SecurityContext;
 
+import java.security.Principal;
 import java.util.List;
 
 @Path("/car")
@@ -15,9 +19,15 @@ public class CarREST {
     @EJB
     CarServiceInterface carService;
 
+    @Context
+    SecurityContext securityContext;
+
     @GET
-    @Path("/getAll")
+    @Path("/getall")
+    @Secured
     public List<Car> getAll(){
+        Principal principal = securityContext.getUserPrincipal();
+        String userName = principal.getName();
         return carService.getAll();
     }
 
@@ -28,7 +38,7 @@ public class CarREST {
     }
 
     @POST
-    @Path("/addNew")
+    @Path("/addnew")
     public void addNew(Car car){
         car.setId(null);
         carService.addNew(car);

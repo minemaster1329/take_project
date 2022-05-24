@@ -16,7 +16,7 @@ public class ClientREST {
     ClientServiceInterface clientServiceInterface;
 
     @GET
-    @Path("/getAll")
+    @Path("/getall")
     public List<Client> getAll() {
         return clientServiceInterface.getAll();
     }
@@ -28,7 +28,7 @@ public class ClientREST {
     }
 
     @POST
-    @Path("/addNew")
+    @Path("/addnew")
     public void addNew(Client client) {
         client.setId(null);
         clientServiceInterface.addNew(client);

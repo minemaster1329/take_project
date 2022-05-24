@@ -4,7 +4,11 @@ import com.example.take_project.daos.CarDaoInterface;
 import com.example.take_project.models.Car;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.SecurityContext;
 
+import java.security.Principal;
 import java.util.List;
 
 @Stateless
