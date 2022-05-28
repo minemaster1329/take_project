@@ -2,6 +2,8 @@ package com.example.take_project.models;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
+
 @Entity
 public class User {
     @Id
@@ -13,8 +15,11 @@ public class User {
     @Column(unique = true)
     private byte[] salt;
 
-    @Enumerated(EnumType.ORDINAL)
-    private UserRole userRole;
+    @ElementCollection(targetClass = UserRole.class)
+    @JoinTable(name = "roles", joinColumns = @JoinColumn(name = "id"))
+    @Column(name="roles", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Collection<UserRole> userRole;
 
     public Long getId() {
         return id;

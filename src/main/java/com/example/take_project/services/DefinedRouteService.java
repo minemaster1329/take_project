@@ -36,4 +36,9 @@ public class DefinedRouteService implements DefinedRouteServiceInterface{
     public void delete(Long id) {
         definedRouteDao.delete(id);
     }
+
+    @Override
+    public boolean checkIfEntityWithIdExists(Long id) {
+        return definedRouteDao.getById(id) != null;
+    }
 }

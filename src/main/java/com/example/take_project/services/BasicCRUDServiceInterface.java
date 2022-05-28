@@ -8,4 +8,5 @@ public interface BasicCRUDServiceInterface<T> {
     void addNew(T cp);
     void update(T cp);
     void delete(Long id);
+    boolean checkIfEntityWithIdExists(Long id);
 }

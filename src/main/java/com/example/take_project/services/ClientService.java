@@ -37,4 +37,9 @@ public class ClientService implements ClientServiceInterface{
     public void delete(Long id) {
         clientDao.delete(id);
     }
+
+    @Override
+    public boolean checkIfEntityWithIdExists(Long id) {
+        return clientDao.getById(id) != null;
+    }
 }

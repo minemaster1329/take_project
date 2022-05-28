@@ -36,4 +36,9 @@ public class ClientPackageService implements ClientPackageServiceInterface{
     public void delete(Long id) {
         clientPackageDao.delete(id);
     }
+
+    @Override
+    public boolean checkIfEntityWithIdExists(Long id) {
+        return clientPackageDao.getById(id) != null;
+    }
 }

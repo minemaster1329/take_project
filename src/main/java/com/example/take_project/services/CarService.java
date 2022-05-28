@@ -1,5 +1,7 @@
 package com.example.take_project.services;
 
+import com.example.take_project.daos.BasicCRUDDaoAbstract;
+import com.example.take_project.daos.BasicCRUDDaoInterface;
 import com.example.take_project.daos.CarDaoInterface;
 import com.example.take_project.models.Car;
 import jakarta.ejb.EJB;
@@ -34,6 +36,11 @@ public class CarService implements CarServiceInterface{
     @Override
     public void delete(Long id) {
         carDao.delete(id);
+    }
+
+    @Override
+    public boolean checkIfEntityWithIdExists(Long id) {
+        return carDao.getById(id) != null;
     }
 
     @Override

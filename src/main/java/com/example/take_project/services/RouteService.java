@@ -37,4 +37,9 @@ public class RouteService implements RouteServiceInterface{
     public void delete(Long id) {
         routeDao.delete(id);
     }
+
+    @Override
+    public boolean checkIfEntityWithIdExists(Long id) {
+        return routeDao.getById(id) != null;
+    }
 }
