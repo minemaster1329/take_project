@@ -1,10 +1,12 @@
 package  com.example.take_project.models;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
+@Schema(name = "Car", description = "Stores info about cars")
 public class Car {
     @Id
     @GeneratedValue
