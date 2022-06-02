@@ -6,7 +6,7 @@ import java.sql.Date;
 import java.util.List;
 
 @Entity
-public class Route {
+public class Route implements EntityBaseInterface{
     @Id
     @GeneratedValue
     private Long id;

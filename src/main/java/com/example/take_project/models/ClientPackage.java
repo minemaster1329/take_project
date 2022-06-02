@@ -1,12 +1,14 @@
 package com.example.take_project.models;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.sql.Date;
 
 @Entity
-public class ClientPackage {
+@Schema(name = "ClientPackage", description = "Stores info about client package")
+public class ClientPackage implements EntityBaseInterface {
     @Id
     @GeneratedValue
     private Long id;
@@ -27,7 +29,7 @@ public class ClientPackage {
     private Date estimatedDeliveryDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private ClientPackage packageOwner;
+    private Client packageOwner;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Route route;
@@ -96,11 +98,11 @@ public class ClientPackage {
         this.route = route;
     }
 
-    public ClientPackage getPackageOwner() {
+    public Client getPackageOwner() {
         return packageOwner;
     }
 
-    public void setPackageOwner(ClientPackage packageOwner) {
+    public void setPackageOwner(Client packageOwner) {
         this.packageOwner = packageOwner;
     }
 

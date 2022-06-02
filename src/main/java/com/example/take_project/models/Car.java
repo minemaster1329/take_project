@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 
 @Entity
 @Schema(name = "Car", description = "Stores info about cars")
-public class Car {
+public class Car implements EntityBaseInterface {
     @Id
     @GeneratedValue
     private Long id;

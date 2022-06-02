@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
-public class DefinedRoute {
+public class DefinedRoute implements EntityBaseInterface {
     @Id
     @GeneratedValue
     private Long id;

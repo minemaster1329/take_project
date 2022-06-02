@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Collection;
 
 @Entity
-public class User {
+public class User implements EntityBaseInterface{
     @Id
     @GeneratedValue
     private Long id;

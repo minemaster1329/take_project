@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
-public class Client {
+public class Client implements EntityBaseInterface {
     @Id
     @GeneratedValue
     private Long id;

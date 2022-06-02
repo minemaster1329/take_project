@@ -8,7 +8,7 @@ import jakarta.persistence.OneToOne;
 import java.sql.Timestamp;
 
 @Entity
-public class UserToken {
+public class UserToken implements EntityBaseInterface{
     @Id
     private Long id;
     @Column(unique = true)

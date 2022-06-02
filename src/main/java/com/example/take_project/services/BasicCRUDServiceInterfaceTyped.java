@@ -5,11 +5,11 @@ import com.example.take_project.otherstuff.exceptions.InvalidUpdateEntityDataExc
 
 import java.util.List;
 
-public interface BasicCRUDServiceInterface<T> {
-    T getById(Long id);
-    List<T> getAll();
-    void addNew(T cp) throws EntityNotFoundException;
-    void update(T cp)  throws InvalidUpdateEntityDataException, EntityNotFoundException;
+public interface BasicCRUDServiceInterfaceTyped<TEntity, TNewEntity, TUpdatedEntity> {
+    TEntity getById(Long id);
+    List<TEntity> getAll();
+    void addNew(TNewEntity cp) throws EntityNotFoundException;
+    void update(TUpdatedEntity cp) throws InvalidUpdateEntityDataException, EntityNotFoundException;
     void delete(Long id);
     boolean checkIfEntityWithIdExists(Long id);
 }

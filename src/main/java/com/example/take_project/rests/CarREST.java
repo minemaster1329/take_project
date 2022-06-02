@@ -35,7 +35,7 @@ public class CarREST {
     @Path("/getall")
     @Operation(summary = "Returns all cars")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Returns ok of request completed successfully", content = @Content(schema = @Schema(implementation = Car[].class)))
+            @ApiResponse(responseCode = "200", description = "Returned if request completed successfully", content = @Content(schema = @Schema(implementation = Car[].class)))
     })
     @Tags({
             @Tag(name = "car"),
