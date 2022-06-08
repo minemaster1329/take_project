@@ -8,8 +8,8 @@ import java.util.List;
 public interface BasicCRUDServiceInterface<T> {
     T getById(Long id);
     List<T> getAll();
-    void addNew(T cp) throws EntityNotFoundException;
-    void update(T cp)  throws InvalidUpdateEntityDataException, EntityNotFoundException;
+    void addNew(T cp);
+    void update(T cp);
     void delete(Long id);
     boolean checkIfEntityWithIdExists(Long id);
 }
