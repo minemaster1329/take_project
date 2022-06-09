@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 import jakarta.ws.rs.core.Application;
 import jakarta.ws.rs.ApplicationPath;
 
+//TODO Before presentation downgrade Java Version to 1.8 and WildFly server to 10.1.0
 @ApplicationPath("/api")
 @OpenAPIDefinition(
         info= @Info(

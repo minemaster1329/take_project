@@ -17,7 +17,7 @@ public class Route implements EntityBaseInterface{
             fetch = FetchType.EAGER,
             cascade = CascadeType.PERSIST
     )
-    private Route routeType;
+    private DefinedRoute routeType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Car vehicle;
@@ -60,11 +60,11 @@ public class Route implements EntityBaseInterface{
         this.date = date;
     }
 
-    public Route getRouteType() {
+    public DefinedRoute getRouteType() {
         return routeType;
     }
 
-    public void setRouteType(Route routeType) {
+    public void setRouteType(DefinedRoute routeType) {
         this.routeType = routeType;
     }
 
