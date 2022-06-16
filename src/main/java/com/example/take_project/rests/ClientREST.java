@@ -2,6 +2,7 @@ package com.example.take_project.rests;
 
 import com.example.take_project.dto.exception.ExceptionDto;
 import com.example.take_project.models.Client;
+import com.example.take_project.models.ClientPackage;
 import com.example.take_project.services.ClientServiceInterface;
 import jakarta.ejb.EJB;
 import jakarta.ws.rs.*;

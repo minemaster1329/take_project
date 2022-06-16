@@ -3,6 +3,7 @@ package com.example.take_project.rests;
 import com.example.take_project.models.Route;
 import com.example.take_project.services.RouteServiceInterface;
 import jakarta.ejb.EJB;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;

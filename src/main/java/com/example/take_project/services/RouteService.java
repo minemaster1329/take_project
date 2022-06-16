@@ -1,7 +1,7 @@
 package com.example.take_project.services;
 
-import com.example.take_project.daos.RouteDao;
 import com.example.take_project.daos.RouteDaoInterface;
+import com.example.take_project.models.DefinedRoute;
 import com.example.take_project.models.Route;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;

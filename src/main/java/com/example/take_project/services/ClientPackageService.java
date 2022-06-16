@@ -35,6 +35,16 @@ public class ClientPackageService implements ClientPackageServiceInterface{
     }
 
     @Override
+    public List<ClientPackage> getAllOwnedByClient(Long ownerID)
+            throws EntityNotFoundException {
+        Client owner = clientDaoInterface.getById(ownerID);
+        if(owner == null) throw new EntityNotFoundException(Client.class);
+
+        return clientPackageDao.getAllOwnedBy(owner);
+    }
+
+
+    @Override
     public void addNew(NewClientPackageDto cp) throws EntityNotFoundException {
         ClientPackage newClientPackage = new ClientPackage();
         Client packageClient = clientDaoInterface.getById(cp.getPackageOwnerId());
@@ -46,10 +56,13 @@ public class ClientPackageService implements ClientPackageServiceInterface{
             if (packageRoute == null) throw new EntityNotFoundException(Route.class);
             newClientPackage.setRoute(packageRoute);
         }
+
         newClientPackage.setDeliveryAddress(cp.getDeliveryAddress());
         newClientPackage.setPrice(cp.getPrice());
         newClientPackage.setPaidFor(cp.getPaidFor());
         newClientPackage.setType(cp.getType());
+        newClientPackage.setWeight(cp.getWeight());
+        newClientPackage.setEstimatedDeliveryDate(cp.getEstimatedDeliveryDate());
 
         clientPackageDao.add(newClientPackage);
     }

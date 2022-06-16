@@ -1,5 +1,7 @@
 package com.example.take_project.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
@@ -29,9 +31,12 @@ public class ClientPackage implements EntityBaseInterface {
     private Date estimatedDeliveryDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Client packageOwner;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Route route;
 
 

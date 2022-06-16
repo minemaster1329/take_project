@@ -1,5 +1,6 @@
 package com.example.take_project.daos;
 
+import com.example.take_project.models.Client;
 import com.example.take_project.models.ClientPackage;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
@@ -16,6 +17,14 @@ public class ClientPackageDao implements ClientPackageDaoInterface {
     @Override
     public void add(ClientPackage entity) {
         entityManager.persist(entity);
+    }
+
+    @Override
+    public List<ClientPackage> getAllOwnedBy(Client owner)
+    {
+        Query query = entityManager.createQuery("select cp from ClientPackage cp where cp.packageOwner = :owner");
+        query.setParameter("owner", owner);
+        return query.getResultList();
     }
 
     @Override

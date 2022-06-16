@@ -1,6 +1,5 @@
 package com.example.take_project.services;
 
-import com.example.take_project.daos.ClientDao;
 import com.example.take_project.daos.ClientDaoInterface;
 import com.example.take_project.models.Client;
 import jakarta.ejb.EJB;
@@ -17,6 +16,8 @@ public class ClientService implements ClientServiceInterface{
     public Client getById(Long id) {
         return clientDao.getById(id);
     }
+
+
 
     @Override
     public List<Client> getAll() {

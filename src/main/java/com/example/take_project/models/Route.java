@@ -1,11 +1,13 @@
 package com.example.take_project.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.util.List;
 
 @Entity
+@JsonIgnoreProperties(value = {"packages"})
 public class Route implements EntityBaseInterface{
     @Id
     @GeneratedValue

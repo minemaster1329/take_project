@@ -1,10 +1,15 @@
 package com.example.take_project.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.List;
 
 @Entity
+@JsonIgnoreProperties(value = {"packages"})
 public class Client implements EntityBaseInterface {
     @Id
     @GeneratedValue
@@ -17,6 +22,9 @@ public class Client implements EntityBaseInterface {
     private String telephoneNumber;
 
     private String firstName;
+
+    @OneToMany
+    private List<ClientPackage> packages;
 
     public Client() {
     }
@@ -59,5 +67,13 @@ public class Client implements EntityBaseInterface {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<ClientPackage> getPackages() {
+        return packages;
+    }
+
+    public void setPackages(List<ClientPackage> packages) {
+        this.packages = packages;
     }
 }

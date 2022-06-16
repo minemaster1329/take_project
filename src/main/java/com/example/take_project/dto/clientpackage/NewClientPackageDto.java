@@ -1,23 +1,30 @@
 package com.example.take_project.dto.clientpackage;
 
 import com.example.take_project.models.Route;
+import jakarta.persistence.Column;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.Optional;
 
 public class NewClientPackageDto {
     private String deliveryAddress;
     private String type;
     private Integer weight;
-    private Boolean isPaidFor;
+    private Boolean paidFor;
     private BigDecimal price;
     private Long packageOwnerId;
-    private Optional<Long> packageRouteId;
+    private Date estimatedDeliveryDate;
+
+    @Column(nullable = true)
+    private Long packageRouteId;
+
+
     public Optional<Long> getPackageRouteId() {
-        return packageRouteId;
+        return Optional.ofNullable(packageRouteId);
     }
 
-    public void setPackageRouteId(Optional<Long> packageRouteId) {
+    public void setPackageRouteId(Long packageRouteId) {
         this.packageRouteId = packageRouteId;
     }
 
@@ -46,11 +53,11 @@ public class NewClientPackageDto {
     }
 
     public Boolean getPaidFor() {
-        return isPaidFor;
+        return paidFor;
     }
 
     public void setPaidFor(Boolean paidFor) {
-        isPaidFor = paidFor;
+        this.paidFor = paidFor;
     }
 
     public BigDecimal getPrice() {
@@ -67,5 +74,13 @@ public class NewClientPackageDto {
 
     public void setPackageOwnerId(Long packageOwnerId) {
         this.packageOwnerId = packageOwnerId;
+    }
+
+    public Date getEstimatedDeliveryDate() {
+        return estimatedDeliveryDate;
+    }
+
+    public void setEstimatedDeliveryDate(Date estimatedDeliveryDate) {
+        this.estimatedDeliveryDate = estimatedDeliveryDate;
     }
 }

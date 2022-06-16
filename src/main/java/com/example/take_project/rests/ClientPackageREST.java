@@ -42,6 +42,29 @@ public class ClientPackageREST {
     }
 
     @GET
+    @Path("/clientId/{id}")
+    @Operation(summary = "Returns all packages owned by specific client.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200",
+                    description = "Returned if the client's packages were retrieved.",
+                    content = @Content(schema = @Schema(implementation = ClientPackage.class))),
+            @ApiResponse(responseCode = "400",
+                    description = "Returned if passed id was null"),
+            @ApiResponse(responseCode = "404",
+                    description = "Returned if specific owner was not found")
+    })
+    public Response getClientsPackages(@PathParam("id") Long ownerID){
+        if(ownerID == null) return Response.status(Response.Status.BAD_REQUEST).build();
+
+        try {
+            List<ClientPackage> packages = clientPackageService.getAllOwnedByClient(ownerID);
+            return Response.ok(packages).build();
+        } catch (EntityNotFoundException e) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @GET
     @Path("/id/{id}")
     @Operation(summary = "Returns package with specified id")
     @ApiResponses({
