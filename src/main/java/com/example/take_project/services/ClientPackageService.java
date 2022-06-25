@@ -10,6 +10,7 @@ import com.example.take_project.models.ClientPackage;
 import com.example.take_project.models.Route;
 import com.example.take_project.otherstuff.exceptions.EntityNotFoundException;
 import com.example.take_project.otherstuff.exceptions.InvalidUpdateEntityDataException;
+import com.example.take_project.otherstuff.mappers.PackageDTOtoPackage;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 
@@ -46,26 +47,20 @@ public class ClientPackageService implements ClientPackageServiceInterface{
 
     @Override
     public void addNew(NewClientPackageDto cp) throws EntityNotFoundException {
-        ClientPackage newClientPackage = new ClientPackage();
         Client packageClient = clientDaoInterface.getById(cp.getPackageOwnerId());
         if (packageClient == null) throw new EntityNotFoundException(Client.class);
 
-        newClientPackage.setPackageOwner(packageClient);
         if (cp.getPackageRouteId().isPresent()){
             Route packageRoute = routeDaoInterface.getById(cp.getPackageRouteId().get());
             if (packageRoute == null) throw new EntityNotFoundException(Route.class);
-            newClientPackage.setRoute(packageRoute);
-            packageRoute.addPackage(newClientPackage);
+
+            ClientPackage newClientPackage = new PackageDTOtoPackage().map(
+                    cp,
+                    packageRoute,
+                    packageClient
+            );
+            clientPackageDao.add(newClientPackage);
         }
-
-        newClientPackage.setDeliveryAddress(cp.getDeliveryAddress());
-        newClientPackage.setPrice(cp.getPrice());
-        newClientPackage.setPaidFor(cp.getPaidFor());
-        newClientPackage.setType(cp.getType());
-        newClientPackage.setWeight(cp.getWeight());
-        newClientPackage.setEstimatedDeliveryDate(cp.getEstimatedDeliveryDate());
-
-        clientPackageDao.add(newClientPackage);
     }
 
     @Override
@@ -82,7 +77,6 @@ public class ClientPackageService implements ClientPackageServiceInterface{
             if (rt == null) throw new EntityNotFoundException(Route.class);
             clientPackage.setRoute(rt);
         }
-
         else clientPackage.setRoute(null);
 
         clientPackage.setType(cp.getType());
