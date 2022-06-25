@@ -1,6 +1,8 @@
 package com.example.take_project.rests;
 
+import com.example.take_project.dto.clientpackage.NewRouteCarsDefinedRouteDto;
 import com.example.take_project.models.Route;
+import com.example.take_project.otherstuff.exceptions.EntityNotFoundException;
 import com.example.take_project.services.RouteServiceInterface;
 import jakarta.ejb.EJB;
 import jakarta.transaction.Transactional;
@@ -34,9 +36,9 @@ public class RouteREST {
 
     @POST
     @Path("/addnew")
-    public Response addNew(Route route){
-        route.setId(null);
-        routeServiceInterface.addNew(route);
+    public Response addNew(NewRouteCarsDefinedRouteDto newRouteCarsDefinedRouteDto) throws EntityNotFoundException {
+        newRouteCarsDefinedRouteDto.setId(null);
+        routeServiceInterface.addNew(newRouteCarsDefinedRouteDto);
         return Response.ok().build();
     }
 
