@@ -55,6 +55,7 @@ public class ClientPackageService implements ClientPackageServiceInterface{
             Route packageRoute = routeDaoInterface.getById(cp.getPackageRouteId().get());
             if (packageRoute == null) throw new EntityNotFoundException(Route.class);
             newClientPackage.setRoute(packageRoute);
+            packageRoute.addPackage(newClientPackage);
         }
 
         newClientPackage.setDeliveryAddress(cp.getDeliveryAddress());
