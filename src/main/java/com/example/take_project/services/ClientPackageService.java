@@ -47,20 +47,18 @@ public class ClientPackageService implements ClientPackageServiceInterface{
 
     @Override
     public void addNew(NewClientPackageDto cp) throws EntityNotFoundException {
+        ClientPackage newClientPackage = new PackageDTOtoPackage().map(cp);
+
         Client packageClient = clientDaoInterface.getById(cp.getPackageOwnerId());
         if (packageClient == null) throw new EntityNotFoundException(Client.class);
 
         if (cp.getPackageRouteId().isPresent()){
             Route packageRoute = routeDaoInterface.getById(cp.getPackageRouteId().get());
             if (packageRoute == null) throw new EntityNotFoundException(Route.class);
-
-            ClientPackage newClientPackage = new PackageDTOtoPackage().map(
-                    cp,
-                    packageRoute,
-                    packageClient
-            );
-            clientPackageDao.add(newClientPackage);
+            packageRoute.addPackage(newClientPackage);
         }
+
+        clientPackageDao.add(newClientPackage);
     }
 
     @Override

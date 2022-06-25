@@ -8,11 +8,9 @@ import com.example.take_project.models.Route;
 
 public class PackageDTOtoPackage {
 
-    public ClientPackage map(NewClientPackageDto dto, Route packageRoute, Client owner) {
+    public ClientPackage map(NewClientPackageDto dto) {
         ClientPackage newClientPackage = new ClientPackage();
 
-        newClientPackage.setRoute(packageRoute);
-        newClientPackage.setPackageOwner(owner);
         newClientPackage.setDeliveryAddress(dto.getDeliveryAddress());
         newClientPackage.setPrice(dto.getPrice());
         newClientPackage.setPaidFor(dto.getPaidFor());
