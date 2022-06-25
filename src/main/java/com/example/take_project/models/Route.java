@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.util.List;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @JsonIgnoreProperties(value = {"packages"})
 public class Route implements EntityBaseInterface{
@@ -21,7 +21,9 @@ public class Route implements EntityBaseInterface{
     )
     private DefinedRoute routeType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY
+
+            )
     private Car vehicle;
 
     @OneToMany(
@@ -44,8 +46,6 @@ public class Route implements EntityBaseInterface{
         this.packages.remove(packageToDelete);
         packageToDelete.setRoute(null);
     }
-
-
 
     public Route() {
     }
