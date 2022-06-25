@@ -1,44 +1,47 @@
 package com.example.take_project.daos;
 
-import com.example.take_project.models.Car;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.List;
 
-public abstract class BasicCRUDDaoAbstract<T> {
-    private Class<T> type2;
-    @PersistenceContext(name="default")
-    EntityManager entityManager;
+public abstract class BasicCRUDDaoAbstract<T> implements BasicCRUDDaoInterface<T>{
 
-    BasicCRUDDaoAbstract(){
-        Type t = getClass().getGenericSuperclass();
-        ParameterizedType pt = (ParameterizedType) t;
-        type2 = (Class) pt.getActualTypeArguments()[0];
+    @PersistenceContext
+    protected EntityManager manager;
+
+    protected final Class<T> entityClass;
+
+    public BasicCRUDDaoAbstract(Class<T> entityClass){
+        this.entityClass = entityClass;
     }
 
-    public void add(T entity){
-        entityManager.persist(entity);
+    public T getById(Long key) {
+        return this.manager.find(entityClass, key);
     }
 
-    public T getById(Long key){
-        return entityManager.find(type2, key);
+
+    public List<T> getAll()
+    {
+        System.out.println(entityClass.getName());
+        Query q = manager.createQuery("select t from " + entityClass.getSimpleName() + " t");
+        @SuppressWarnings("unchecked")
+        List<T> entities = q.getResultList();
+        return entities;
     }
 
-    public List<T> getAll(){
-        Query query = entityManager.createQuery(String.format("select c from %s c", type2.getName()));
-        return query.getResultList();
+
+    public void add(T entity) {
+        System.out.println("Persisting" + entity.toString());
+        manager.persist(entity);
     }
 
-    public void delete(Long id){
-        T entity = entityManager.find(type2 ,id);
-        entityManager.remove(entity);
+    public void update(T entity) {
+        entity = this.manager.merge(entity);
     }
 
-    public void update(T entity){
-        entityManager.merge(entity);
+    public void delete(Long id) {
+        this.manager.remove(this.manager.getReference(entityClass, id));
     }
 }
