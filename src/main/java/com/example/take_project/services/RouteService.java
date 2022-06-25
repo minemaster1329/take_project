@@ -1,7 +1,9 @@
 package com.example.take_project.services;
 
 import com.example.take_project.daos.CarDaoInterface;
+import com.example.take_project.daos.DefinedRouteDaoInterface;
 import com.example.take_project.daos.RouteDaoInterface;
+import com.example.take_project.dto.clientpackage.NewRouteCarsDefinedRouteDto;
 import com.example.take_project.models.Car;
 import com.example.take_project.models.DefinedRoute;
 import com.example.take_project.models.Route;
@@ -9,10 +11,8 @@ import com.example.take_project.otherstuff.exceptions.EntityNotFoundException;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Stateless
 public class RouteService implements RouteServiceInterface{
@@ -20,6 +20,8 @@ public class RouteService implements RouteServiceInterface{
     RouteDaoInterface routeDao;
     @EJB
     CarDaoInterface carDaoInterface;
+    @EJB
+    DefinedRouteDaoInterface definedRouteDaoInterface;
 
     @Override
     public Route getById(Long id) {
@@ -37,6 +39,23 @@ public class RouteService implements RouteServiceInterface{
     }
 
     @Override
+    public void addNew(NewRouteCarsDefinedRouteDto newRouteCarsDefinedRouteDto) throws EntityNotFoundException {
+        Route newRoute = new Route();
+
+        Car chosenCar = carDaoInterface.getById(newRouteCarsDefinedRouteDto.getCarId());
+        if (chosenCar == null) throw new EntityNotFoundException(Car.class);
+
+        DefinedRoute chosenDefinedRoute = definedRouteDaoInterface.getById(newRouteCarsDefinedRouteDto.getDefinedRouteId());
+        if (chosenDefinedRoute == null) throw new EntityNotFoundException(DefinedRoute.class);
+
+        newRoute.setDate((Date) newRouteCarsDefinedRouteDto.getDate());
+        newRoute.setRouteType(chosenDefinedRoute);
+        newRoute.setVehicle(chosenCar);
+
+        routeDao.add(newRoute);
+    }
+
+    @Override
     public void update(Route cp) {
         routeDao.update(cp);
     }
@@ -49,15 +68,5 @@ public class RouteService implements RouteServiceInterface{
     @Override
     public boolean checkIfEntityWithIdExists(Long id) {
         return routeDao.getById(id) != null;
-    }
-
-    @Override
-    public List<Route> getRoutesForCarInSpecifiedDay(Long carId, Date date) throws EntityNotFoundException {
-        if (carId == null) throw new IllegalArgumentException("Car ID cannot be null");
-        if (carDaoInterface.getById(carId) == null) throw new EntityNotFoundException(Car.class);
-        if (date == null){
-            return routeDao.getAll().stream().filter(route -> route.getVehicle().getId().equals(carId)).collect(Collectors.toList());
-        }
-        else return routeDao.getAll().stream().filter(route -> route.getVehicle().getId().equals(carId) && Objects.equals(route.getDate(), date)).collect(Collectors.toList());
     }
 }

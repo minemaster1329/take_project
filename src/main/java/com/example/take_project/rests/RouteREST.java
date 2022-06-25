@@ -1,6 +1,6 @@
 package com.example.take_project.rests;
 
-import com.example.take_project.models.Car;
+import com.example.take_project.dto.clientpackage.NewRouteCarsDefinedRouteDto;
 import com.example.take_project.models.Route;
 import com.example.take_project.otherstuff.exceptions.EntityNotFoundException;
 import com.example.take_project.services.RouteServiceInterface;
@@ -10,7 +10,6 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import java.util.Date;
 import java.util.List;
 
 @Path("/route")
@@ -37,9 +36,9 @@ public class RouteREST {
 
     @POST
     @Path("/addnew")
-    public Response addNew(Route route){
-        route.setId(null);
-        routeServiceInterface.addNew(route);
+    public Response addNew(NewRouteCarsDefinedRouteDto newRouteCarsDefinedRouteDto) throws EntityNotFoundException {
+        newRouteCarsDefinedRouteDto.setId(null);
+        routeServiceInterface.addNew(newRouteCarsDefinedRouteDto);
         return Response.ok().build();
     }
 
@@ -58,22 +57,5 @@ public class RouteREST {
         if (!routeServiceInterface.checkIfEntityWithIdExists(route.getId())) return Response.status(Response.Status.NOT_FOUND).build();
         routeServiceInterface.update(route);
         return Response.ok().build();
-    }
-
-    //TODO Finish endpoint by adding date validation
-    @GET
-    @Path("/forcarinday/{carId}/{date}")
-    public Response getRoutesForCarInSpecifiedDay(@PathParam("carId") Long carId, @PathParam("date")Date date){
-        if (carId == null) return Response.status(Response.Status.BAD_REQUEST).build();
-        try {
-            List<Route> routes = routeServiceInterface.getRoutesForCarInSpecifiedDay(carId, date);
-            return Response.ok(routes).build();
-        }
-        catch (EntityNotFoundException e){
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-        catch (IllegalArgumentException e){
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
     }
 }
