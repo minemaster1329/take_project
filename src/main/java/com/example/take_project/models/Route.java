@@ -7,7 +7,7 @@ import java.sql.Date;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
-@JsonIgnoreProperties(value = {"packages", "vehicle"})
+@JsonIgnoreProperties(value = {"packages"})
 public class Route implements EntityBaseInterface{
     @Id
     @GeneratedValue
@@ -21,9 +21,7 @@ public class Route implements EntityBaseInterface{
     )
     private DefinedRoute routeType;
 
-    @ManyToOne(fetch = FetchType.LAZY
-
-            )
+    @ManyToOne(fetch = FetchType.EAGER)
     private Car vehicle;
 
     @OneToMany(

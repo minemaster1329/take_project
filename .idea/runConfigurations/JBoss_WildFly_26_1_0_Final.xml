@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="JBoss/WildFly 26.1.0.Final" type="JBossConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="JBoss/WildFly 26.1.1.Final1" ALTERNATIVE_JRE_ENABLED="false">
+  <configuration default="false" name="JBoss/WildFly 26.1.0.Final" type="JBossConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="JBoss/WildFly 26.1.1.Final1" ALTERNATIVE_JRE_ENABLED="false" ALTERNATIVE_JRE_PATH="11">
     <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/take_project-1.0-SNAPSHOT" />
     <option name="UPDATING_POLICY" value="restart-server" />
     <deployment>

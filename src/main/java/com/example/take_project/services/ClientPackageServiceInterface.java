@@ -10,4 +10,7 @@ import java.util.List;
 public interface ClientPackageServiceInterface extends BasicCRUDServiceInterfaceTyped<ClientPackage, NewClientPackageDto, UpdatedClientPackageDto>{
     List<ClientPackage> getAllOwnedByClient(Long ownerID)
             throws EntityNotFoundException;
+
+    List<ClientPackage> getPackagesForCarAndRoute(Long carId, Long routeId) throws EntityNotFoundException;
+    void assignRouteToPackage(Long packageId, Long routeId) throws EntityNotFoundException;
 }

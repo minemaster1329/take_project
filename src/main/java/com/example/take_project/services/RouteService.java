@@ -36,7 +36,11 @@ public class RouteService implements RouteServiceInterface{
 
     @Override
     public List<Route> getAll() {
-        return routeDao.getAll();
+        List<Route> output = routeDao.getAll();
+        for (int i = 0; i < output.size(); i++){
+            output.get(i).getVehicle();
+        }
+        return output;
     }
 
 

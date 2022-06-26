@@ -1,10 +1,12 @@
 package com.example.take_project.services;
 
+import com.example.take_project.daos.CarDaoInterface;
 import com.example.take_project.daos.ClientDaoInterface;
 import com.example.take_project.daos.ClientPackageDaoInterface;
 import com.example.take_project.daos.RouteDaoInterface;
 import com.example.take_project.dto.clientpackage.NewClientPackageDto;
 import com.example.take_project.dto.clientpackage.UpdatedClientPackageDto;
+import com.example.take_project.models.Car;
 import com.example.take_project.models.Client;
 import com.example.take_project.models.ClientPackage;
 import com.example.take_project.models.Route;
@@ -15,6 +17,7 @@ import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Stateless
 public class ClientPackageService implements ClientPackageServiceInterface{
@@ -24,6 +27,9 @@ public class ClientPackageService implements ClientPackageServiceInterface{
     ClientDaoInterface clientDaoInterface;
     @EJB
     RouteDaoInterface routeDaoInterface;
+
+    @EJB
+    CarDaoInterface carDaoInterface;
 
     @Override
     public ClientPackage getById(Long id) {
@@ -40,8 +46,29 @@ public class ClientPackageService implements ClientPackageServiceInterface{
             throws EntityNotFoundException {
         Client owner = clientDaoInterface.getById(ownerID);
         if(owner == null) throw new EntityNotFoundException(Client.class);
+        return clientPackageDao.getAll().stream().filter(clientPackage -> clientPackage.getPackageOwner().getId().equals(ownerID)).collect(Collectors.toList());
+    }
 
-        return clientPackageDao.getAllOwnedBy(owner);
+    @Override
+    public List<ClientPackage> getPackagesForCarAndRoute(Long carId, Long routeId) throws EntityNotFoundException {
+        Car c =  carDaoInterface.getById(carId);
+        Route r = routeDaoInterface.getById(routeId);
+
+        if (c == null) throw new EntityNotFoundException(Car.class);
+        if (r == null) throw new EntityNotFoundException(Route.class);
+
+        return clientPackageDao.getAll().stream().filter(clientPackage -> clientPackage.getRoute() != null && clientPackage.getRoute().getId().equals(routeId) && clientPackage.getRoute().getVehicle().getId().equals(carId)).collect(Collectors.toList());
+    }
+
+    @Override
+    public void assignRouteToPackage(Long packageId, Long routeId) throws EntityNotFoundException {
+        Route r = routeDaoInterface.getById(routeId);
+        if (r == null) throw new EntityNotFoundException(Route.class);
+        ClientPackage cp = clientPackageDao.getById(packageId);
+        if (cp == null) throw new EntityNotFoundException(ClientPackage.class);
+
+        cp.setRoute(r);
+        clientPackageDao.update(cp);
     }
 
 
@@ -51,6 +78,8 @@ public class ClientPackageService implements ClientPackageServiceInterface{
 
         Client packageClient = clientDaoInterface.getById(cp.getPackageOwnerId());
         if (packageClient == null) throw new EntityNotFoundException(Client.class);
+
+        newClientPackage.setPackageOwner(packageClient);
 
         if (cp.getPackageRouteId().isPresent()){
             Route packageRoute = routeDaoInterface.getById(cp.getPackageRouteId().get());

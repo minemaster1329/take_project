@@ -141,4 +141,30 @@ public class ClientPackageREST {
         }
         return Response.ok().build();
     }
+
+    @GET
+    @Path("/assignroute/{packageId}/{routeId}")
+    public Response assignRoute(@PathParam("packageId") Long packageId, @PathParam("routeId") Long routeId){
+        if (packageId == null || routeId == null) return Response.status(Response.Status.BAD_REQUEST).build();
+        try {
+            clientPackageService.assignRouteToPackage(packageId, routeId);
+            return Response.ok().build();
+        }
+        catch (EntityNotFoundException e){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @GET
+    @Path("/getforcarandroute/{carId}/{routeId}")
+    public Response getForCarAndRoute(@PathParam("carId") Long carId, @PathParam("routeId") Long routeId){
+        if (carId == null || routeId == null) return Response.status(Response.Status.BAD_REQUEST).build();
+        try {
+            List<ClientPackage> output = clientPackageService.getPackagesForCarAndRoute(carId, routeId);
+            return Response.ok(output).build();
+        }
+        catch (EntityNotFoundException e){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
 }
