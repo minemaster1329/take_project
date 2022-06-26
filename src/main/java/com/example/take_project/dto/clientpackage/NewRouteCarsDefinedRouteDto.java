@@ -1,6 +1,6 @@
 package com.example.take_project.dto.clientpackage;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class NewRouteCarsDefinedRouteDto {
 

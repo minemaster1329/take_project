@@ -78,6 +78,17 @@ public class RouteREST {
         }
     }
 
+    @GET
+    @Path("/forcarinday/{carId}/{day}/{month}/{year}")
+    public Response getRoutesForCarInSpecifiedDay(@PathParam("carId") Long carId, @PathParam("day") Integer day, @PathParam("month") Integer month, @PathParam("year") Integer year){
+        if (carId == null || day == null || month == null || year == null) return Response.status(Response.Status.BAD_REQUEST).build();
 
-
+        try {
+            List<Route> routes = routeServiceInterface.getRoutesForCarInSpecifiedDay(carId, day, month, year);
+            return Response.ok(routes).build();
+        }
+        catch (EntityNotFoundException e){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
 }

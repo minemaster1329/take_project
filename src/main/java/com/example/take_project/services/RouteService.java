@@ -9,10 +9,13 @@ import com.example.take_project.models.Route;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import com.example.take_project.daos.CarDaoInterface;
+
+import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import com.example.take_project.models.Car;
 import com.example.take_project.otherstuff.exceptions.EntityNotFoundException;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.sql.Date;
 @Stateless
@@ -59,6 +62,15 @@ public class RouteService implements RouteServiceInterface{
     }
 
     @Override
+    public List<Route> getRoutesForCarInSpecifiedDay(Long carId, Integer day, Integer month, Integer year) throws EntityNotFoundException {
+        if (carId == null) throw new IllegalArgumentException("Car ID cannot be null");
+        if (carDaoInterface.getById(carId) == null) throw new EntityNotFoundException(Car.class);
+        Calendar c = Calendar.getInstance();
+        c.set(year, month - 1, day);
+        return routeDao.getAll().stream().filter(route -> route.getVehicle().getId().equals(carId)).filter(route -> route.getDate().compareTo(c.getTime()) == 0).collect(Collectors.toList());
+    }
+
+    @Override
     public void update(Route cp) {
         routeDao.update(cp);
     }
@@ -80,5 +92,4 @@ public class RouteService implements RouteServiceInterface{
 
         return routeDao.getAll().stream().filter(route -> route.getVehicle().getId().equals(carId)).collect(Collectors.toList());
     }
-
 }

@@ -24,7 +24,7 @@ public abstract class BasicCRUDDaoAbstract<T> implements BasicCRUDDaoInterface<T
 
     public List<T> getAll()
     {
-        System.out.println(entityClass.getName());
+        //System.out.println(entityClass.getName());
         Query q = manager.createQuery("select t from " + entityClass.getSimpleName() + " t");
         @SuppressWarnings("unchecked")
         List<T> entities = q.getResultList();
@@ -33,7 +33,7 @@ public abstract class BasicCRUDDaoAbstract<T> implements BasicCRUDDaoInterface<T
 
 
     public void add(T entity) {
-        System.out.println("Persisting" + entity.toString());
+        //System.out.println("Persisting" + entity.toString());
         manager.persist(entity);
     }
 

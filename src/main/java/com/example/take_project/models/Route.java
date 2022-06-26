@@ -7,7 +7,7 @@ import java.sql.Date;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
-@JsonIgnoreProperties(value = {"packages"})
+@JsonIgnoreProperties(value = {"packages", "vehicle"})
 public class Route implements EntityBaseInterface{
     @Id
     @GeneratedValue
@@ -31,9 +31,6 @@ public class Route implements EntityBaseInterface{
             mappedBy = "route"
     )
     private List<ClientPackage> packages;
-
-
-
 
     public void addPackage(ClientPackage newPackage)
     {
