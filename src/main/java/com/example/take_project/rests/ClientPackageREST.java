@@ -144,6 +144,12 @@ public class ClientPackageREST {
 
     @GET
     @Path("/assignroute/{packageId}/{routeId}")
+    @Operation(summary = "Assigns route to package")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Returned if route was assigned successfully"),
+            @ApiResponse(responseCode = "400", description = "Returned if route or package id was null"),
+            @ApiResponse(responseCode = "404", description = "Returned if package or route with specified id was not found")
+    })
     public Response assignRoute(@PathParam("packageId") Long packageId, @PathParam("routeId") Long routeId){
         if (packageId == null || routeId == null) return Response.status(Response.Status.BAD_REQUEST).build();
         try {
@@ -157,6 +163,12 @@ public class ClientPackageREST {
 
     @GET
     @Path("/getforcarandroute/{carId}/{routeId}")
+    @Operation(summary = "Assigns route to package")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Returned if car and route with given id were found"),
+            @ApiResponse(responseCode = "400", description = "Returned if car or route id was null"),
+            @ApiResponse(responseCode = "404", description = "Returned if car or route with specified id was not found")
+    })
     public Response getForCarAndRoute(@PathParam("carId") Long carId, @PathParam("routeId") Long routeId){
         if (carId == null || routeId == null) return Response.status(Response.Status.BAD_REQUEST).build();
         try {
